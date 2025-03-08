@@ -30,7 +30,7 @@ This is a tiny step-by-step helper to manage Contentful Migration Scripts using 
 
 (change `pnpm` to `yarn` or `npm` or whatever)
 
-1. Run `pnpm cf:new <environment> <filename>` to generate a new migration file.
+1. Run `pnpm cf:new <filename>` to generate an empty migration file.
 2. Edit your migration file
 3. run `pnpm cf:migrate` to run the migration and log it in your registry.
 

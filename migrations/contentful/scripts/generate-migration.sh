@@ -1,15 +1,12 @@
 #!/bin/sh
 # Don't forget to chmod this file :)
 
-source .env.local
-
-if [ $# -ne 2 ]; then
-  echo "Error: This script requires two arguments: <environment> <filename>"
+if [ $# -ne 1 ]; then
+  echo "Error: This script requires one argument: <filename>"
   exit 1
 fi
 
-ENVIRONMENT="$1"
-FILENAME="$2"
+FILENAME="$1"
 MIGRATIONS_DIR="migrations/contentful/migrations"
 
 # Ensure migrations directory exists
@@ -30,14 +27,13 @@ fi
 new_filename="$new_number-$FILENAME.ts"
 new_filepath="$MIGRATIONS_DIR/$new_filename"
 
-# Run the script
-echo "Generating migration: $new_filename"
-contentful space generate migration -s "$CONTENTFUL_SPACE_ID" -e "$ENVIRONMENT" -f "$new_filepath"
+# Create the TypeScript migration file with the desired format
+cat <<EOF > "$new_filepath"
+import Migration from "contentful-migration"
 
-# Check the exit code
-if [ $? -ne 0 ]; then
-    echo "Error: contentful space generate migration failed."
-    exit 1
-fi
+export = function (migration: Migration) {
+  const newContentType = migration
+}
+EOF
 
 echo "Migration generated successfully: $new_filename"
