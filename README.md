@@ -9,8 +9,9 @@ This is a tiny step-by-step helper to manage Contentful Migration Scripts using 
 ## Requirements
 
 - `contentful-cli`
+- `contentful-migrations`
 - A Contentful account
-- A Node.js project
+- A Node.js Typescript project
 
 ## Setup
 
@@ -35,5 +36,5 @@ This is a tiny step-by-step helper to manage Contentful Migration Scripts using 
 
 ## Caveats
 
-1. This *only works* with Javascript. I'm a heavy Typescript user but damn, it was too much work to make this work with TS.
+1. This is setup to work with Typescript. Javascript has an easier setup but I already did the heavy lifting for you.
 2. This is a very personal way of dealing with this "migration registry" issue and I'd love to get suggestions.

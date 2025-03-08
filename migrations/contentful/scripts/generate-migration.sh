@@ -10,13 +10,13 @@ fi
 
 ENVIRONMENT="$1"
 FILENAME="$2"
-MIGRATIONS_DIR="migrations/contentful"
+MIGRATIONS_DIR="migrations/contentful/migrations"
 
 # Ensure migrations directory exists
 mkdir -p "$MIGRATIONS_DIR"
 
 ## BUILDING THE FILENAME
-existing_files=$(ls "$MIGRATIONS_DIR"/????-*.js 2>/dev/null | sort -r)
+existing_files=$(ls "$MIGRATIONS_DIR"/????-*.ts 2>/dev/null | sort -r)
 
 if [ -z "$existing_files" ]; then
   new_number="0001"
@@ -27,7 +27,7 @@ else
   new_number=$(printf "%04d" "$new_number")
 fi
 
-new_filename="$new_number-$FILENAME.js"
+new_filename="$new_number-$FILENAME.ts"
 new_filepath="$MIGRATIONS_DIR/$new_filename"
 
 # Run the script
