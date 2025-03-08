@@ -19,8 +19,11 @@ This is a tiny step-by-step helper to manage Contentful Migration Scripts using 
 3. Add your `CONTENTFUL_SPACE_ID` to your `.env.local` file
    - If you are using a different named `.env` file, you'll need to edit the `.sh` files
 4. For extra pizzaz, add to your `package.json` `scripts`:
+
+```json
     "cf:new": "./migrations/scripts/generate-migration.sh",
     "cf:migrate": "./migrations/scripts/migrate.sh"
+```
 
 ## Running
 
