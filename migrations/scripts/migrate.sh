@@ -6,35 +6,40 @@ source .env.local
 # Make sure you are logged in
 pnpm contentful login
 
+# Save into variables:
 MIGRATIONS_DIR="migrations/contentful"
 REGISTRY_FILE="migrations/migrations-registry.txt"
 
-# Ensure registry file exists
+# Ensure the migrations directory and registry file exist.
+mkdir -p "$MIGRATIONS_DIR"
+
 if [ ! -f "$REGISTRY_FILE" ]; then
   touch "$REGISTRY_FILE"
 fi
 
-for file in "$MIGRATIONS_DIR"/*.ts; do
+# Loop through the JavaScript files in the migrations folder.
+for file in "$MIGRATIONS_DIR"/*.js; do
   filename=$(basename "$file")
+  filename_no_ext=$(basename "$file" .js)
 
-  # Check if the migration has already been run
-  if grep -q "$filename" "$REGISTRY_FILE"; then
+  # If their filename (without extension) is found in the registry-file, skip it.
+  if grep -q "$filename_no_ext" "$REGISTRY_FILE"; then
     echo "Skipping migration: $filename (already run)"
     continue
   fi
 
-  # Run the migration
+  # Run the migration using the JS file.
   echo "Running migration: $filename"
   contentful space migration --space-id "$CONTENTFUL_SPACE_ID" "$file"
 
-  # Check if the migration was successful (you might want to add more robust error handling)
+  # Check if migration was successful.
   if [ $? -eq 0 ]; then
-      # Add the migration filename to the registry
-      echo "$filename" >> "$REGISTRY_FILE"
-      echo "Migration $filename successfully run and registered."
+    # Add the migration filename (without extension) to the registry.
+    echo "$filename_no_ext" >> "$REGISTRY_FILE"
+    echo "Migration $filename successfully run and registered."
   else
-      echo "Migration $filename failed."
-      exit 1 # Exit with an error code
+    echo "Migration $filename failed."
+    exit 1
   fi
 done
 

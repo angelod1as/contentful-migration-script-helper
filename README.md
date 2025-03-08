@@ -35,5 +35,5 @@ This is a tiny step-by-step helper to manage Contentful Migration Scripts using 
 
 ## Caveats
 
-1. I'm using Typescript. If you want to use `js`, change line `19` and `30` of `generate-migration.sh`.
+1. This *only works* with Javascript. I'm a heavy Typescript user but damn, it was too much work to make this work with TS.
 2. This is a very personal way of dealing with this "migration registry" issue and I'd love to get suggestions.
